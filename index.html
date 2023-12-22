@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Repetizioni Piramide Inversa</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>Calcolatore Repetizioni Piramide Inversa</h1>
+        <label for="massimale">Inserisci il massimale (in Kg):</label>
+        <input type="number" id="massimale" min="1" step="0.1" required>
+        <button onclick="calcolaPiramide()">Calcola</button>
+
+        <div id="risultati">
+            <!-- Qui verranno visualizzati i risultati -->
+        </div>
+    </div>
+
+    <script>
+        function calcolaPiramide() {
+            // Recupera il massimale inserito dall'utente
+            var massimale = parseFloat(document.getElementById('massimale').value);
+
+            // Assicurati che il massimale sia un numero valido
+            if (isNaN(massimale) || massimale <= 0) {
+                alert('Inserisci un numero valido per il massimale.');
+                return;
+            }
+
+            // Definisci il numero di colpi per ciascuna ripetizione
+            var colpiRipetizioni = [6, 8, 10, 12];
+
+            // Calcola le tre ripetizioni di riscaldamento
+            var riscaldamento = [
+                { colpi: 10, peso: 0.40 * massimale },
+                { colpi: 5, peso: 0.70 * massimale },
+                { colpi: 2, peso: 0.85 * massimale }
+            ];
+
+            // Calcola le quattro ripetizioni principali secondo la nuova formula
+            var piramide = [
+                { colpi: colpiRipetizioni[0], peso: massimale },
+                { colpi: colpiRipetizioni[1], peso: massimale - (0.10 * massimale) },
+                { colpi: colpiRipetizioni[2], peso: (massimale - (0.10 * massimale)) - (0.10 * (massimale - (0.10 * massimale))) },
+                { colpi: colpiRipetizioni[3], peso: ((massimale - (0.10 * massimale)) - (0.10 * (massimale - (0.10 * massimale)))) - (0.10 * ((massimale - (0.10 * massimale)) - (0.10 * (massimale - (0.10 * massimale)))))}
+            ];
+
+            // Visualizza i risultati
+            var risultatiDiv = document.getElementById('risultati');
+            risultatiDiv.innerHTML = "<h2>Risultati:</h2>" +
+                "<table>" +
+                "<tr><th>Set</th><th>Colpi</th><th>Peso (Kg)</th></tr>" +
+                "<tr><td>Riscaldamento 1</td><td>" + riscaldamento[0].colpi + "</td><td>" + riscaldamento[0].peso.toFixed(2) + "</td></tr>" +
+                "<tr><td>Riscaldamento 2</td><td>" + riscaldamento[1].colpi + "</td><td>" + riscaldamento[1].peso.toFixed(2) + "</td></tr>" +
+                "<tr><td>Riscaldamento 3</td><td>" + riscaldamento[2].colpi + "</td><td>" + riscaldamento[2].peso.toFixed(2) + "</td></tr>" +
+                "<tr><td>Set 1</td><td>" + piramide[0].colpi + "</td><td>" + piramide[0].peso.toFixed(2) + "</td></tr>" +
+                "<tr><td>Set 2</td><td>" + piramide[1].colpi + "</td><td>" + piramide[1].peso.toFixed(2) + "</td></tr>" +
+                "<tr><td>Set 3</td><td>" + piramide[2].colpi + "</td><td>" + piramide[2].peso.toFixed(2) + "</td></tr>" +
+                "<tr><td>Set 4</td><td>" + piramide[3].colpi + "</td><td>" + piramide[3].peso.toFixed(2) + "</td></tr>" +
+                "</table>";
+        }
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {
+                    console.log('Service Worker registrato con successo:', registration);
+                })
+                .catch(function(error) {
+                    console.log('Errore durante la registrazione del Service Worker:', error);
+                });
+        }
+    </script>    
+</body>
+
+</html>
+
+
+
+

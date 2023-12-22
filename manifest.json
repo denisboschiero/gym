@@ -1,0 +1,17 @@
+{
+    "name": "Calcolatore Ripetizioni",
+    "short_name": "Ripetizioni",
+    "description": "App per il calcolo delle ripetizioni di una piramide inversa",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "piramid.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
